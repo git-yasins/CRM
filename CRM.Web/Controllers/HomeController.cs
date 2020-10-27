@@ -15,7 +15,7 @@ namespace CRM.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application d b    escription pa33    33ge.";
+            ViewBag.Message = "Your application d     b    escription pa33    33ge.";
 
             return View();
         }
