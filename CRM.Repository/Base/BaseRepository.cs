@@ -4,13 +4,30 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
     public class BaseRepository<TEntity> where TEntity : class
     {
-        BaseDBContext db = new BaseDBContext();
+        /// <summary>
+        /// 同一线程只存在一个EF实例
+        /// </summary>
+        BaseDBContext db {
+            get
+            {
+                object obj = CallContext.GetData("BaseDbContext");//线程缓存对象
+                if(obj == null)
+                {
+                    obj = new BaseDBContext();
+
+                    CallContext.SetData("BaseDbContext", obj);
+                }
+                return obj as BaseDBContext;
+            }
+        }
+
         DbSet<TEntity> _dbset;
 
         public BaseRepository()
@@ -128,16 +145,6 @@ namespace CRM.Repository
         public async Task<int> SaveChanges()
         {
             return await db.SaveChangesAsync();
-        }
-
-        public Task<List<TEntity>> QueryByPage<TKey>(int pageindex, int pagesize, out int rowcount, Expression<Func<TEntity, TKey>> order, Expression<Func<TEntity, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<TEntity>> QueryOrderBy<TKey>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TKey>> order)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<List<TEntity>> QueryOrderByDescending<TKey>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TKey>> order)

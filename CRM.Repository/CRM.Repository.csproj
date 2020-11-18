@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\CRM.Web\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -67,9 +67,9 @@
       <Project>{972e12fa-3426-4d07-b7be-05716cdfca25}</Project>
       <Name>CRM.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IRepository\IRepository.csproj">
+    <ProjectReference Include="..\IRepository\CRM.IRepository.csproj">
       <Project>{0722f3c5-5cae-4150-a1ba-ff046bba03ea}</Project>
-      <Name>IRepository</Name>
+      <Name>CRM.IRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -36,7 +36,8 @@ namespace CRM.IRepository
         /// <param name="where">条件</param>
         /// <param name="order">排序lambda表达式</param>
         /// <returns></returns>
-        Task<List<TEntity>> QueryOrderBy<TKey>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TKey>> order);
+        Task<List<TEntity>> QueryOrderBy<TKey>(Expression<Func<TEntity, bool>> where,
+           Expression<Func<TEntity, TKey>> order, bool OrderByType = false);
 
 
         /// <summary>
@@ -59,8 +60,7 @@ namespace CRM.IRepository
         /// <param name="order">排序lambda表达式</param>
         /// <param name="where">查询条件lambda表达式</param>
         /// <returns></returns>
-        Task<List<TEntity>> QueryByPage<TKey>(int pageindex, int pagesize, out int rowcount, Expression<Func<TEntity, TKey>> order, Expression<Func<TEntity, bool>> where);
-
+        Task<Tuple<List<TEntity>, int>> QueryByPage<TKey>(int pageindex, int pagesize, Expression<Func<TEntity, TKey>> order, Expression<Func<TEntity, bool>> where);
 
         #endregion
 

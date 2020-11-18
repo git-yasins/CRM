@@ -1,13 +1,17 @@
-﻿using System;
+﻿using CRM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
-namespace CRM.Controllers
+using CRM.IServices;
+namespace CRM.Web.Controllers
 {
     public class HomeController : Controller
     {
+
+   
         public ActionResult Index()
         {
             return View();
@@ -15,15 +19,15 @@ namespace CRM.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application d     b    escription pa33    33ge.";
+            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public async Task<ActionResult> Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            await Task.CompletedTask;
             return View();
         }
     }

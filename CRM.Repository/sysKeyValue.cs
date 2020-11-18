@@ -9,17 +9,18 @@
 
 using CRM.IRepository;
 using CRM.Model;
-using CRM.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-      /// <summary>
-      /// 负责每个数据表的数据操作
-      /// </summary>
-    public partial class sysKeyValueRepository :BaseRepository<sysKeyValue>,IsysKeyValueRepository
+    /// <summary>
+    /// 负责每个数据表的数据操作
+    /// </summary>
+    public partial class sysKeyValueRepository : BaseRepository<sysKeyValue>, IsysKeyValueRepository
     {
-       #region 针对此表的特殊操作写在此处
-            
-      #endregion
+
     }
 }

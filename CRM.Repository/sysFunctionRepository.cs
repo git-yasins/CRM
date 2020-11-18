@@ -1,4 +1,5 @@
-﻿using CRM.Model;
+﻿using CRM.IRepository;
+using CRM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-    public class sysFunctionRepository:BaseRepository<sysFunction>
+    public class sysFunctionRepository:BaseRepository<sysFunction>, IsysFunctionRepository
     {
 
     }

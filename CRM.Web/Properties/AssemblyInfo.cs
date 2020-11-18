@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息是通过以下项进行控制的
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("CRM")]
+[assembly: AssemblyTitle("CRM.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CRM")]
+[assembly: AssemblyProduct("CRM.Web")]
 [assembly: AssemblyCopyright("版权所有(C)  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于 typelib 的 ID
-[assembly: Guid("1a1c5d54-ba85-40c1-a709-6d2012b64d8a")]
+[assembly: Guid("360f55d2-bcf8-421e-9f43-ae02e3067921")]
 
 // 程序集的版本信息由下列四个值组成:
 //

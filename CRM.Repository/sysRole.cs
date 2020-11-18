@@ -14,14 +14,35 @@ namespace CRM.Repository
     
     using CRM.Model;
    using CRM.IRepository;
-    
-      /// <summary>
-      /// 负责每个数据表的数据操作
-      /// </summary>
-    public partial class sysRoleRepository :BaseRepository<sysRole>,IsysRoleRepository
+    using System.Threading.Tasks;
+    using System.Linq.Expressions;
+
+    /// <summary>
+    /// 负责每个数据表的数据操作
+    /// </summary>
+    public partial class sysRoleRepository : BaseRepository<sysRole>, IsysRoleRepository
     {
-       #region 针对此表的特殊操作写在此处
-            
-      #endregion
+        #region 针对此表的特殊操作写在此处
+
+        #endregion
+        public Task<List<sysRole>> QueryByPage<TKey>(int pageindex, int pagesize, out int rowcount, Expression<Func<sysRole, TKey>> order, Expression<Func<sysRole, bool>> where, bool OrderByType = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Tuple<List<sysRole>>> QueryOrderBy<TKey>(Expression<Func<sysRole, bool>> where, Expression<Func<sysRole, TKey>> order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<sysRole>> QueryOrderByDescending<TKey>(Expression<Func<sysRole, bool>> where, Expression<Func<sysRole, TKey>> order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<TResult>> RunProc<TResult>(string sql, params object[] pamrs)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
