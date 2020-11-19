@@ -1,60 +1,93 @@
 ﻿@model CRM.Model.ModelViews.LoginInfo
 
+@{
+    Layout = null;
+}
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>LoginInfo</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.uLoginName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.uLoginName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.uLoginName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<!DOCTYPE html>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.uLoginPWD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.uLoginPWD, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.uLoginPWD, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.VCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.VCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <link href="~/Content/bootstrap.all.css" rel="stylesheet" />
+    <style type="text/css">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsMember, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsMember)
-                    @Html.ValidationMessageFor(model => model.IsMember, "", new { @class = "text-danger" })
+        .login-title {
+            text-align: right;
+            padding-right: 3px;
+        }
+
+        img {
+            margin-right: 5px;
+            cursor:pointer;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">欢迎登录CRM管理系统</h5>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>*@
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("Login", "Login", new AjaxOptions()
+                    {
+                        Url = Url.Action("Login", "Login"),
+                        HttpMethod = "Post",
+                        OnBegin = "begin",
+                        OnSuccess = "success"
+                    },new { id="frmLogin"}))
+                    {
+                        <div class="list">
+                            <div class="form-group">
+                                <label class="login-title">@Html.DisplayNameFor(c => c.uLoginName)</label>
+                                @Html.TextBoxFor(c => c.uLoginName, new { @class = "form-control", maxLength = 15 })
+                                <small id="uLoginName" class="form-text text-muted">@Html.ValidationMessageFor(c => c.uLoginName, "", new { @class = "error" })</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="login-title">@Html.DisplayNameFor(c => c.uLoginPWD)</label>
+                                @Html.PasswordFor(c => c.uLoginPWD, new { @class = "form-control", maxLength = 15 })
+                                <small id="uLoginPWD" class="form-text text-muted">@Html.ValidationMessageFor(c => c.uLoginPWD, "", new { @class = "error" })</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="login-title">@Html.DisplayNameFor(c => c.VCode)</label>
+                                <div><img onclick="refreshCode()" class="rounded float-left" src="@Url.Action("Index","VCode")" id="imgCode" style="height: calc(1.5em + .75rem + 2px);" width="65" /></div>
+                                @Html.TextBoxFor(c => c.VCode, new { @class = "form-control", style = "width:60px;", maxLength = 4 })
+                                <small id="VCode" class="form-text text-muted">@Html.ValidationMessageFor(c => c.VCode, "", new { @class = "error" })</small>
+                            </div>
+                            <div style="margin-top:20px">
+                                <input type="submit" value="登录" class="btn btn-primary"/>
+                                <input type="reset" value="重置" class="btn btn-secondary"/>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#staticBackdrop").modal('show');
+        });
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        let refreshCode = () => {
+            $("#imgCode").attr("src", '@Url.Action("Index","VCode")' + '?timespan=' + Math.random());//(new Date()).valueOf());
+        }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    </script>
+</body>
+</html>
